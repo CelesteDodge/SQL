@@ -1,15 +1,32 @@
-#Example from dvd_rental database
+/*___Examples______ from dvd_rental database*/
 
+/*See how man transactions at what total each staff have completed*/
 SELECT staff_id, COUNT(amount), SUM(amount)
 FROM payment
 GROUP BY staff_id;
 
+/*GROUP the data or create facets*/
 SELECT rating, AVG(replacement_cost) 
 FROM film
 GROUP BY rating;
 
+/*Get the top 5 spending customers*/
 SELECT customer_id, SUM(amount)
 FROM payment
 GROUP BY customer_id
 ORDER BY SUM(amount) DESC
 LIMIT 5;
+
+/*Get the customers who have rented movies more than 40 times*/
+SELECT customer_id, COUNT(amount)
+FROM payment
+GROUP BY customer_id
+HAVING COUNT(amount) > 40;
+
+/*Get the ratings which have an average rental duration above 5 days*/
+SELECT rating, AVG(rental_duration)
+FROM film
+GROUP BY rating
+HAVING AVG(rental_duration) >5;
+
+/**/
